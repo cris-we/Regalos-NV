@@ -1,0 +1,305 @@
+﻿/* --- CONFIGURACIÓN GENERAL --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primario: #fff;
+    --fondo: #ffebf2;
+    --fondo-sobre: #ffe3ed;
+    --solapa-sobre: #ffccd5;
+    --cuerpo-sobre: #ffc1d1;
+    --sombra: rgba(0, 0, 0, 0.2);
+    --texto: #003049;
+    --corazon: #ff477e;
+}
+
+body {
+    background: var(--fondo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+h1 {
+    font-family: "Marck Script", serif;
+    text-align: center;
+    font-size: 70px;
+    margin-bottom: 60px;
+    color: #444;
+}
+
+/* --- ESTRUCTURA DEL SOBRE --- */
+.contenedor {
+    width: 400px;
+    z-index: 10;
+}
+
+.envoltura-sobre {
+    position: relative;
+    background-color: var(--fondo-sobre);
+    box-shadow: 0 0 60px var(--sombra);
+    border-radius: 20px;
+}
+
+.sobre {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    z-index: 0;
+}
+
+    .sobre::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 4;
+        border-top: 180px solid var(--solapa-sobre);
+        border-right: 200px solid transparent;
+        border-left: 200px solid transparent;
+        transform-origin: top;
+        transition: all 0.5s ease-in-out 0.7s;
+        border-radius: 10px;
+    }
+
+.solapa-derecha, .solapa-izquierda {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--cuerpo-sobre);
+    z-index: 3;
+}
+
+.solapa-derecha {
+    right: 0;
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+    border-bottom-right-radius: 10px;
+}
+
+.solapa-izquierda {
+    left: 0;
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    border-top-left-radius: 10px;
+}
+
+/* --- LA CARTA Y EL CONTENIDO (SCROLL ACTIVO) --- */
+.carta {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primario);
+    text-align: center;
+    box-shadow: 0 0 5px var(--sombra);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform .5s ease-in-out;
+    z-index: 2;
+}
+
+.contenido {
+    font-family: "Gill Sans", Calibri, sans-serif;
+    color: var(--texto);
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.6;
+    border: 3px dotted var(--texto);
+    padding: 15px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+    cursor: text;
+}
+
+    .contenido::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .contenido::-webkit-scrollbar-thumb {
+        background-color: var(--cuerpo-sobre);
+        border-radius: 10px;
+    }
+
+/* --- CORAZÓN --- */
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--corazon);
+    transform: translate(-50%, 0%) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s;
+    z-index: 999;
+    cursor: pointer;
+}
+
+    .corazon::before, .corazon::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: var(--corazon);
+        border-radius: 50%;
+    }
+
+    .corazon::before {
+        top: -15px;
+    }
+
+    .corazon::after {
+        right: 15px;
+    }
+
+/* --- ANIMACIONES --- */
+.abierto .sobre::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.carta.mostrar-carta {
+    transform: translateY(-100%);
+    transition: transform 0.5s ease-in-out 0.7s;
+    z-index: 2;
+}
+
+/* --- SECCIÓN DE LOS RAMOS (IZQUIERDA Y DERECHA) --- */
+.ramo-tulipanes {
+    position: fixed;
+    bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ramo-izq {
+    left: 15%;
+    transform: translateX(-50%);
+}
+
+.ramo-der {
+    right: 15%;
+    transform: translateX(50%);
+}
+
+.tulipan {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: bottom center;
+}
+
+.t1 {
+    transform: rotate(-25deg) translateY(-20px);
+}
+
+.t2 {
+    transform: rotate(-10deg) translateY(-40px);
+}
+
+.t3 {
+    transform: rotate(0deg) translateY(-55px);
+}
+
+.cabeza {
+    position: relative;
+    width: 40px;
+    height: 50px;
+}
+
+.petalo-centro, .petalo-izq, .petalo-der {
+    position: absolute;
+    border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+}
+
+.petalo-centro {
+    width: 30px;
+    height: 45px;
+    left: 5px;
+    z-index: 2;
+}
+
+.petalo-izq, .petalo-der {
+    width: 25px;
+    height: 40px;
+    filter: brightness(90%);
+}
+
+.petalo-izq {
+    left: -8px;
+    transform: rotate(-25deg);
+    z-index: 1;
+}
+
+.petalo-der {
+    right: -8px;
+    transform: rotate(25deg);
+    z-index: 1;
+}
+
+.rojo .petalo-centro, .rojo .petalo-izq, .rojo .petalo-der {
+    background-color: #ff4d6d;
+}
+
+.amarillo .petalo-centro, .amarillo .petalo-izq, .amarillo .petalo-der {
+    background-color: #ffc300;
+}
+
+.rosa .petalo-centro, .rosa .petalo-izq, .rosa .petalo-der {
+    background-color: #ff8da1;
+}
+
+.tallo {
+    width: 4px;
+    height: 180px;
+    background: linear-gradient(to bottom, #2d6a4f, #1b4332);
+}
+
+
+
+    
+    
+
+/* --- RESPONSIVE PARA MÓVILES --- */
+@media screen and (max-width: 600px) {
+    .ramo-izq {
+        left: 10%;
+        transform: scale(0.6);
+    }
+
+    .ramo-der {
+        right: 10%;
+        transform: scale(0.6);
+    }
+
+    .contenedor {
+        width: 300px;
+    }
+
+    .sobre {
+        width: 300px;
+        height: 250px;
+    }
+
+        .sobre::before {
+            border-top: 120px solid var(--solapa-sobre);
+            border-right: 150px solid transparent;
+            border-left: 150px solid transparent;
+        }
+
+    h1 {
+        font-size: 40px;
+    }
+}
