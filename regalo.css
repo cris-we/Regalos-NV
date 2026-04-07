@@ -1,4 +1,4 @@
-﻿/* --- CONFIGURACIÓN GENERAL --- */
+﻿/* --- CONFIGURACIÓN GENERAL (Actualizada para móviles) --- */
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +23,7 @@ body {
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Evita scrolls raros en móviles */
 }
 
 h1 {
@@ -54,20 +54,20 @@ h1 {
     z-index: 0;
 }
 
-    .sobre::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 4;
-        border-top: 180px solid var(--solapa-sobre);
-        border-right: 200px solid transparent;
-        border-left: 200px solid transparent;
-        transform-origin: top;
-        transition: all 0.5s ease-in-out 0.7s;
-        border-radius: 10px;
-    }
+.sobre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    border-top: 180px solid var(--solapa-sobre);
+    border-right: 200px solid transparent;
+    border-left: 200px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+    border-radius: 10px;
+}
 
 .solapa-derecha, .solapa-izquierda {
     position: absolute;
@@ -114,20 +114,19 @@ h1 {
     border: 3px dotted var(--texto);
     padding: 15px;
     height: 100%;
-    overflow-y: auto;
+    overflow-y: auto; 
     overflow-x: hidden;
     display: block;
     cursor: text;
 }
 
-    .contenido::-webkit-scrollbar {
-        width: 5px;
-    }
-
-    .contenido::-webkit-scrollbar-thumb {
-        background-color: var(--cuerpo-sobre);
-        border-radius: 10px;
-    }
+.contenido::-webkit-scrollbar {
+    width: 5px;
+}
+.contenido::-webkit-scrollbar-thumb {
+    background-color: var(--cuerpo-sobre);
+    border-radius: 10px;
+}
 
 /* --- CORAZÓN --- */
 .corazon {
@@ -143,36 +142,22 @@ h1 {
     cursor: pointer;
 }
 
-    .corazon::before, .corazon::after {
-        content: "";
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background-color: var(--corazon);
-        border-radius: 50%;
-    }
-
-    .corazon::before {
-        top: -15px;
-    }
-
-    .corazon::after {
-        right: 15px;
-    }
+.corazon::before, .corazon::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: var(--corazon);
+    border-radius: 50%;
+}
+.corazon::before { top: -15px; }
+.corazon::after { right: 15px; }
 
 /* --- ANIMACIONES --- */
-.abierto .sobre::before {
-    transform: rotateX(180deg);
-    z-index: 0;
-}
+.abierto .sobre::before { transform: rotateX(180deg); z-index: 0; }
+.carta.mostrar-carta { transform: translateY(-100%); transition: transform 0.5s ease-in-out 0.7s; z-index: 2; }
 
-.carta.mostrar-carta {
-    transform: translateY(-100%);
-    transition: transform 0.5s ease-in-out 0.7s;
-    z-index: 2;
-}
-
-/* --- SECCIÓN DE LOS RAMOS (IZQUIERDA Y DERECHA) --- */
+/* --- SECCIÓN DE LOS RAMOS (SOLUCIÓN MÓVIL) --- */
 .ramo-tulipanes {
     position: fixed;
     bottom: 5%;
@@ -183,15 +168,9 @@ h1 {
     z-index: -1;
 }
 
-.ramo-izq {
-    left: 15%;
-    transform: translateX(-50%);
-}
-
-.ramo-der {
-    right: 15%;
-    transform: translateX(50%);
-}
+/* Posicionamiento lateral ajustado para móviles */
+.ramo-izq { left: 18%; transform: translateX(-50%); } /* Un poco más centrado en móvil */
+.ramo-der { right: 18%; transform: translateX(50%); } /* Un poco más centrado en móvil */
 
 .tulipan {
     position: absolute;
@@ -201,65 +180,20 @@ h1 {
     transform-origin: bottom center;
 }
 
-.t1 {
-    transform: rotate(-25deg) translateY(-20px);
-}
+.t1 { transform: rotate(-25deg) translateY(-20px); }
+.t2 { transform: rotate(-10deg) translateY(-40px); }
+.t3 { transform: rotate(0deg) translateY(-55px); }
 
-.t2 {
-    transform: rotate(-10deg) translateY(-40px);
-}
+.cabeza { position: relative; width: 40px; height: 50px; }
+.petalo-centro, .petalo-izq, .petalo-der { position: absolute; border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%; }
+.petalo-centro { width: 30px; height: 45px; left: 5px; z-index: 2; }
+.petalo-izq, .petalo-der { width: 25px; height: 40px; filter: brightness(90%); }
+.petalo-izq { left: -8px; transform: rotate(-25deg); z-index: 1; }
+.petalo-der { right: -8px; transform: rotate(25deg); z-index: 1; }
 
-.t3 {
-    transform: rotate(0deg) translateY(-55px);
-}
-
-.cabeza {
-    position: relative;
-    width: 40px;
-    height: 50px;
-}
-
-.petalo-centro, .petalo-izq, .petalo-der {
-    position: absolute;
-    border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
-}
-
-.petalo-centro {
-    width: 30px;
-    height: 45px;
-    left: 5px;
-    z-index: 2;
-}
-
-.petalo-izq, .petalo-der {
-    width: 25px;
-    height: 40px;
-    filter: brightness(90%);
-}
-
-.petalo-izq {
-    left: -8px;
-    transform: rotate(-25deg);
-    z-index: 1;
-}
-
-.petalo-der {
-    right: -8px;
-    transform: rotate(25deg);
-    z-index: 1;
-}
-
-.rojo .petalo-centro, .rojo .petalo-izq, .rojo .petalo-der {
-    background-color: #ff4d6d;
-}
-
-.amarillo .petalo-centro, .amarillo .petalo-izq, .amarillo .petalo-der {
-    background-color: #ffc300;
-}
-
-.rosa .petalo-centro, .rosa .petalo-izq, .rosa .petalo-der {
-    background-color: #ff8da1;
-}
+.rojo .petalo-centro, .rojo .petalo-izq, .rojo .petalo-der { background-color: #ff4d6d; }
+.amarillo .petalo-centro, .amarillo .petalo-izq, .amarillo .petalo-der { background-color: #ffc300; }
+.rosa .petalo-centro, .rosa .petalo-izq, .rosa .petalo-der { background-color: #ff8da1; }
 
 .tallo {
     width: 4px;
@@ -267,39 +201,46 @@ h1 {
     background: linear-gradient(to bottom, #2d6a4f, #1b4332);
 }
 
+/* --- ELIMINAR EL BORRÓN DEL RAMO DERECHO --- */
+.lazo {
+    position: absolute;
+    bottom: -12px; /* Baja un poco más para cubrir el final */
+    width: 40px;
+    height: 18px;
+    background-color: var(--corazon);
+    border-radius: 10px;
+    z-index: 5;
+    /* BORDE CLARO PARA DEFINIRLO */
+    border: 2px solid var(--fondo-sobre); 
+}
 
+.lazo::before, .lazo::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: var(--corazon);
+    border-radius: 50%;
+    top: -5px;
+    border: 2px solid var(--fondo-sobre); /* Borde claro */
+}
+.lazo::before { left: -10px; }
+.lazo::after { right: -10px; }
 
-    
-    
-
-/* --- RESPONSIVE PARA MÓVILES --- */
+/* --- RESPONSIVE ESPECÍFICO PARA MÓVILES (Optimizado) --- */
 @media screen and (max-width: 600px) {
-    .ramo-izq {
-        left: 10%;
-        transform: scale(0.6);
+    /* Mueve los ramos hacia adentro para que no se corten */
+    .ramo-izq { left: 22%; transform: scale(0.65) translateX(-50%); }
+    .ramo-der { right: 22%; transform: scale(0.65) translateX(50%); }
+    
+    .contenedor { width: 320px; } /* Sobre un poco más grande en móvil */
+    .sobre { width: 320px; height: 260px; }
+    .sobre::before {
+        border-top: 130px solid var(--solapa-sobre);
+        border-right: 160px solid transparent;
+        border-left: 160px solid transparent;
     }
-
-    .ramo-der {
-        right: 10%;
-        transform: scale(0.6);
-    }
-
-    .contenedor {
-        width: 300px;
-    }
-
-    .sobre {
-        width: 300px;
-        height: 250px;
-    }
-
-        .sobre::before {
-            border-top: 120px solid var(--solapa-sobre);
-            border-right: 150px solid transparent;
-            border-left: 150px solid transparent;
-        }
-
-    h1 {
-        font-size: 40px;
-    }
+    h1 { font-size: 36px; margin-bottom: 30px; }
+    
+    p { font-size: 14px; } /* Texto de la carta más legible */
 }
